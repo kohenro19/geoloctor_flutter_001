@@ -65,6 +65,7 @@ class LocationSample extends StatefulWidget{
 class _LocationSampleState extends State<LocationSample> {
   // Location
   double latitude = 0;
+  String? country;
 
     @override
   void initState() {
@@ -75,30 +76,30 @@ class _LocationSampleState extends State<LocationSample> {
   Future<void> initialize() async {
     final p = await _currentPosition;
     setState(() {
-        latitude = p.latitude;
+      country = p.country;
     });
   }
 
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  "Location Infomation",
-                  style: TextStyle(
-                      fontSize: 20.0
-                  ),
-                ),
-                Text("Your Current Location is :"),
-                Text("$latitude")
-              ],
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            "Location Infomation",
+            style: TextStyle(
+                fontSize: 20.0
+            ),
+          ),
+          Text("Your Current Location is :"),
+          Text("$country")
+        ],
             ),
     );
   }
 
-   Future<Position> get _currentPosition async {
+   Future<geoCoding.Placemark> get _currentPosition async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -137,7 +138,7 @@ class _LocationSampleState extends State<LocationSample> {
     final placeMark = placeMarks[0];
 
     // return placeMark.country;
-    return position;
+    return placeMark;
  }
 
 }
